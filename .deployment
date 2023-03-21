@@ -1,2 +1,2 @@
 [config]
-npm run build
+command = deploy.cmd
