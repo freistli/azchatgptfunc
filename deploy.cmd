@@ -1,1 +1,1 @@
-xcopy . ..\wwwroot /s && cd ..\wwwroot && npm install && npm run build
+xcopy . ..\wwwroot /s /y && cd ..\wwwroot && npm install && npm run build
