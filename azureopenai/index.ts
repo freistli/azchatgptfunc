@@ -35,7 +35,7 @@ class MyOpenAI {
         apiBaseUrl: process.env.AZURE_OPENAI_API_BASE,
         debug: false
       },
-      'chatgpt'
+      process.env.CHATGPT_DEPLOY_NAME
     )
   }
 
