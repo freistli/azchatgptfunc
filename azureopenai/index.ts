@@ -60,6 +60,8 @@ class MyOpenAI {
         apiKey: process.env.AZURE_OPENAI_API_KEY,
         apiBaseUrl: process.env.AZURE_OPENAI_API_BASE,
         messageStore: this.azureRedisStore,
+        systemMessage:
+          'You are a friendly, intelligent, and curious assistant who is good at conversation. Your name is Copilot.',
         debug: false
       },
       process.env.CHATGPT_DEPLOY_NAME ?? 'chatgpt'
@@ -93,7 +95,14 @@ class MyOpenAI {
       }
     } catch (e: any) {
       console.log('Failed to handle: ' + prompt + 'with error: ' + e)
-      return 'Cannot handle this prompt for the moment, please try again'
+      const errorObject = JSON.parse(
+        e.message.substring(
+          e.message.indexOf('{'),
+          e.message.lastIndexOf('}') + 1
+        )
+      )
+      const messageString = errorObject.error.message
+      return { text: messageString, id: messageId }
     }
   }
 }
